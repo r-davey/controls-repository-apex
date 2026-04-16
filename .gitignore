@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
+
+# Credentials — never commit these
+*.env
+credentials.txt
+*.key
+
+# Oracle wallets and connection files (relevant later)
+wallet/
+*.wallet
