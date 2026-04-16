@@ -1,0 +1,34 @@
+-- Controls Repository — Master Build Script
+-- Recreates the entire Oracle schema from scratch in dependency order.
+-- Run via APEX SQL Workshop → SQL Scripts.
+--
+-- Prerequisites: an empty APEX workspace schema (CONTROLS)
+-- Produces: 9 tables, 9 sequences, 19 triggers, 7 views, seed data
+--
+-- Build order:
+--   1. Sequences (auto-increment number generators)
+--   2. Lookup tables (no dependencies)
+--   3. Core tables (depend on lookup tables)
+--   4. Workflow and audit tables (depend on core tables)
+--   5. Auto-increment triggers (depend on tables + sequences)
+--   6. Updated_at triggers (depend on tables)
+--   7. Audit trail triggers (depend on tables + audit_log)
+--   8. Audit log immutability trigger
+--   9. Seed data (depends on all tables + triggers)
+--  10. Reporting views (depend on all tables + seed data)
+--
+-- Individual scripts (run in this order if building manually):
+--   sql/create_sequences.sql
+--   sql/create_lookup_tables.sql
+--   sql/create_core_tables.sql
+--   sql/create_workflow_tables.sql
+--   sql/create_autoincrement_triggers.sql
+--   sql/create_updated_at_triggers.sql
+--   sql/create_audit_triggers.sql
+--   sql/protect_audit_log.sql
+--   sql/seed_data.sql
+--   sql/create_views.sql
+--
+-- To verify the build, run: sql/p1_17_verification.sql
+-- Expected: 6 deliberate errors (constraint + immutability tests),
+-- all other statements succeed.
